@@ -8,15 +8,15 @@
 var mineflayer = require('mineflayer');
 
 if(process.argv.length < 4 || process.argv.length > 6) {
-	console.log("Usage : node jumper.js <host> <port> [<name>] [<password>]");
+	console.log('Usage : node jumper.js <host> <port> [<name>] [<password>]');
 	process.exit(1);
 }
 
 var bot = mineflayer.createBot({
-	host: process.argv[2],
-	port: parseInt(process.argv[3]),
-	username: process.argv[4] ? process.argv[4] : "jumper",
-	password: process.argv[5],
+	host: 'localhost',//process.argv[2],
+	port: 52148,//parseInt(process.argv[3]),
+	username: 'jumper',
+	// password: process.argv[5],
 	verbose: true,
 });
 
@@ -102,7 +102,7 @@ bot.on('chat', function(username, message) {
 			bot.chat(bot.entity.position.toString());
 			break;
 		case 'yp':
-			bot.chat("Yaw " + bot.entity.yaw + ", pitch: " + bot.entity.pitch);
+			bot.chat('Yaw ' + bot.entity.yaw + ', pitch: ' + bot.entity.pitch);
 			break;
 		default:
 			bot.chat('What? '+ message + '?');
@@ -120,11 +120,11 @@ bot.once('spawn', function() {
 });
 
 bot.on('mount', function() {
-	bot.chat("mounted " + bot.vehicle.objectType);
+	bot.chat('mounted ' + bot.vehicle.objectType);
 });
 
 bot.on('dismount', function(vehicle) {
-	bot.chat("dismounted " + vehicle.objectType);
+	bot.chat('dismounted ' + vehicle.objectType);
 });
 
 var minimalDistance = 2;

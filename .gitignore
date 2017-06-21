@@ -1,0 +1,7 @@
+*.sw?
+*.tmp
+*.bak
+*.exe
+*.bak
+*~
+node_modules

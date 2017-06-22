@@ -3,6 +3,12 @@ Minetest
 
 Эксперименты с [mineflayer](https://github.com/PrismarineJS/mineflayer/) -- создание ботов для Minecraft.
 
+Конфигурация
+------------
+
+Конфигурация хранится в едином файле **config.yaml**.
+Для считывания используется модуль [libs/config.js](libs/config.js).
+
 Ссылки
 ------
 

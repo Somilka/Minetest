@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/Somilka/Minetest#readme",
   "dependencies": {
+    "fs-extra": "^3.0.1",
+    "js-yaml": "^3.8.4",
     "mineflayer": "^2.4.1"
   }
 }

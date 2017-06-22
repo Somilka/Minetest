@@ -6,22 +6,28 @@
  * It's not very useful yet, but you can use this as a starting point
  * to create your own bot.
  */
- var mineflayer = require('mineflayer');
 
- if(process.argv.length < 4 || process.argv.length > 6) {
- 	console.log("Usage : node echo.js <host> <port> [<name>] [<password>]");
- 	process.exit(1);
- }
+var
 
- var bot = mineflayer.createBot({
- 	host: process.argv[2],
- 	port: parseInt(process.argv[3]),
- 	username: process.argv[4] ? process.argv[4] : "echo",
- 	password: process.argv[5],
- 	verbose: true,
- });
+    // Зависимости...
 
- bot.on('chat', function(username, message) {
- 	if(username === bot.username) return;
- 	bot.chat(message);
- });
+    // Интерфейс к Minecraft
+    mineflayer = require('mineflayer'),
+
+    // Конфигурация (см. `config.yaml`)
+    config = require('./lib/config'),
+
+    // Создаём бота...
+    bot = mineflayer.createBot({
+        host : config.host,
+        port : config.port,
+        username : 'echo',
+        // password : 'password',
+        verbose : true,
+    })
+;
+
+bot.on('chat', function(username, message) {
+    if(username === bot.username) return;
+    bot.chat(message);
+});

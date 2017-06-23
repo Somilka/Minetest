@@ -1,0 +1,491 @@
+/*
+ * Jumping is fun. Riding pigs is even funnier!
+ *
+ * Learn how to make your bot interactive with this example.
+ *
+ * This bot can move, jump, ride vehicles, attack nearby entities and much more.
+ */
+
+var
+
+<<<<<<< HEAD
+var bot = mineflayer.createBot({
+	host: process.argv[2],
+	port: parseInt(process.argv[3]),
+	username: process.argv[4] ? process.argv[4] : 'jumper',
+	password: process.argv[5],
+	verbose: true,
+});
+||||||| merged common ancestors
+var bot = mineflayer.createBot({
+	host: 'localhost',//process.argv[2],
+	port: 52148,//parseInt(process.argv[3]),
+	username: 'jumper',
+	// password: process.argv[5],
+	verbose: true,
+});
+=======
+    // Зависимости...
+
+    // Интерфейс к Minecraft
+    mineflayer = require('mineflayer'),
+
+    // Конфигурация (см. `config.yaml`)
+    config = require('./lib/config'),
+
+    // Создаём бота...
+    bot = mineflayer.createBot({
+        host : config.host,
+        port : config.port,
+        username : 'jumper',
+        // password : 'password',
+        verbose : true,
+    }),
+>>>>>>> 34411a4580bb1feb06a4b0bb05c234af45344538
+
+    target = null
+;
+
+bot.on('chat', function(username, message) {
+<<<<<<< HEAD
+	if(username === bot.username) return;
+	target = bot.players[username].entity;
+	var entity;
+	switch(message) {
+		case 'forward':
+			bot.setControlState('forward', true);
+			break;
+		case 'back':
+			bot.setControlState('back', true);
+			break;
+		case 'left':
+			bot.setControlState('left', true);
+			break;
+		case 'right':
+			bot.setControlState('right', true);
+			break;
+		case 'sprint':
+			bot.setControlState('sprint', true);
+			break;
+		case 'stop':
+			bot.clearControlStates();
+			break;
+		case 'jump':
+			bot.setControlState('jump', true);
+			bot.setControlState('jump', false);
+			break;
+		case 'jump a lot':
+			bot.setControlState('jump', true);
+			break;
+		case 'stop jumping':
+			bot.setControlState('jump', false);
+			break;
+		// case 'attack':
+		// 	entity = mountToNearestEntity();
+		// 	if(entity) {
+		// 		bot.attack(entity, true);
+		// 	} else {
+		// 		bot.chat('no nearby entities');
+		// 	}
+		// 	break;
+		case 'mount':
+			mountToNearestEntity();
+			// if(entity) {
+			// 	try {
+			// 		bot.mount(entity);
+			// 	}
+			// 	catch(e) {
+			// 		bot.chat('Error!');
+			// 		console.error(e);
+			// 	}
+			// } else {
+			// 	bot.chat('no nearby objects');
+			// }
+			break;
+		case 'dismount':
+			bot.dismount();
+			break;
+		case 'stop vehicle':
+			bot.moveVehicle(0.0, 0.0);
+			break;
+		case 'move vehicle forward':
+			bot.moveVehicle(0.0, 1.0);
+			break;
+		case 'move vehicle backward':
+			bot.moveVehicle(0.0, -1.0);
+			break;
+		case 'move vehicle left':
+			bot.moveVehicle(1.0, 0.0);
+			break;
+		case 'move vehicle right':
+			bot.moveVehicle(-1.0, 0.0);
+			break;
+		case 'tp':
+			bot.entity.position.y += 10;
+			break;
+		case 'pos':
+			bot.chat(bot.entity.position.toString());
+			break;
+		case 'yp':
+			bot.chat('Yaw ' + bot.entity.yaw + ', pitch: ' + bot.entity.pitch);
+			break;
+		default:
+			bot.chat('Что? '+ message + '?');
+	}
+||||||| merged common ancestors
+	if(username === bot.username) return;
+	target = bot.players[username].entity;
+	var entity;
+	switch(message) {
+		case 'forward':
+			bot.setControlState('forward', true);
+			break;
+		case 'back':
+			bot.setControlState('back', true);
+			break;
+		case 'left':
+			bot.setControlState('left', true);
+			break;
+		case 'right':
+			bot.setControlState('right', true);
+			break;
+		case 'sprint':
+			bot.setControlState('sprint', true);
+			break;
+		case 'stop':
+			bot.clearControlStates();
+			break;
+		case 'jump':
+			bot.setControlState('jump', true);
+			bot.setControlState('jump', false);
+			break;
+		case 'jump a lot':
+			bot.setControlState('jump', true);
+			break;
+		case 'stop jumping':
+			bot.setControlState('jump', false);
+			break;
+		// case 'attack':
+		// 	entity = mountToNearestEntity();
+		// 	if(entity) {
+		// 		bot.attack(entity, true);
+		// 	} else {
+		// 		bot.chat('no nearby entities');
+		// 	}
+		// 	break;
+		case 'mount':
+			mountToNearestEntity();
+			// if(entity) {
+			// 	try {
+			// 		bot.mount(entity);
+			// 	}
+			// 	catch(e) {
+			// 		bot.chat('Error!');
+			// 		console.error(e);
+			// 	}
+			// } else {
+			// 	bot.chat('no nearby objects');
+			// }
+			break;
+		case 'dismount':
+			bot.dismount();
+			break;
+		case 'stop vehicle':
+			bot.moveVehicle(0.0, 0.0);
+			break;
+		case 'move vehicle forward':
+			bot.moveVehicle(0.0, 1.0);
+			break;
+		case 'move vehicle backward':
+			bot.moveVehicle(0.0, -1.0);
+			break;
+		case 'move vehicle left':
+			bot.moveVehicle(1.0, 0.0);
+			break;
+		case 'move vehicle right':
+			bot.moveVehicle(-1.0, 0.0);
+			break;
+		case 'tp':
+			bot.entity.position.y += 10;
+			break;
+		case 'pos':
+			bot.chat(bot.entity.position.toString());
+			break;
+		case 'yp':
+			bot.chat('Yaw ' + bot.entity.yaw + ', pitch: ' + bot.entity.pitch);
+			break;
+		default:
+			bot.chat('What? '+ message + '?');
+	}
+=======
+    if(username === bot.username) return;
+    target = bot.players[username].entity;
+    var entity;
+    switch(message) {
+        case 'forward':
+            bot.setControlState('forward', true);
+            break;
+        case 'back':
+            bot.setControlState('back', true);
+            break;
+        case 'left':
+            bot.setControlState('left', true);
+            break;
+        case 'right':
+            bot.setControlState('right', true);
+            break;
+        case 'sprint':
+            bot.setControlState('sprint', true);
+            break;
+        case 'stop':
+            bot.clearControlStates();
+            break;
+        case 'jump':
+            bot.setControlState('jump', true);
+            bot.setControlState('jump', false);
+            break;
+        case 'jump a lot':
+            bot.setControlState('jump', true);
+            break;
+        case 'stop jumping':
+            bot.setControlState('jump', false);
+            break;
+        // case 'attack':
+        //  entity = mountToNearestEntity();
+        //  if(entity) {
+        //      bot.attack(entity, true);
+        //  } else {
+        //      bot.chat('no nearby entities');
+        //  }
+        //  break;
+        case 'mount':
+            mountToNearestEntity();
+            // if(entity) {
+            //  try {
+            //      bot.mount(entity);
+            //  }
+            //  catch(e) {
+            //      bot.chat('Error!');
+            //      console.error(e);
+            //  }
+            // } else {
+            //  bot.chat('no nearby objects');
+            // }
+            break;
+        case 'dismount':
+            bot.dismount();
+            break;
+        case 'stop vehicle':
+            bot.moveVehicle(0.0, 0.0);
+            break;
+        case 'move vehicle forward':
+            bot.moveVehicle(0.0, 1.0);
+            break;
+        case 'move vehicle backward':
+            bot.moveVehicle(0.0, -1.0);
+            break;
+        case 'move vehicle left':
+            bot.moveVehicle(1.0, 0.0);
+            break;
+        case 'move vehicle right':
+            bot.moveVehicle(-1.0, 0.0);
+            break;
+        case 'tp':
+            bot.entity.position.y += 10;
+            break;
+        case 'pos':
+            bot.chat(bot.entity.position.toString());
+            break;
+        case 'yp':
+            bot.chat('Yaw ' + bot.entity.yaw + ', pitch: ' + bot.entity.pitch);
+            break;
+        default:
+            bot.chat('What? '+ message + '?');
+    }
+>>>>>>> 34411a4580bb1feb06a4b0bb05c234af45344538
+});
+
+bot.once('spawn', function() {
+    // keep your eyes on the target, so creepy!
+    // setInterval(watchTarget, 50);
+
+    function watchTarget() {
+        if(!target) return;
+        bot.lookAt(target.position.offset(0, target.height, 0));
+    }
+});
+
+bot.on('mount', function() {
+<<<<<<< HEAD
+	console.log('test mount');
+	if ( entity.displayName === 'Minecart' ) {
+		bot.chat('Уселся в вагонетку');
+	}
+	else {
+		bot.chat('Уселся на лошадь');
+	}
+||||||| merged common ancestors
+	bot.chat('mounted ' + bot.vehicle.objectType);
+=======
+    bot.chat('mounted ' + bot.vehicle.objectType);
+>>>>>>> 34411a4580bb1feb06a4b0bb05c234af45344538
+});
+
+bot.on('dismount', function(vehicle) {
+<<<<<<< HEAD
+	if ( entity.displayName === 'Horse' ) {
+		bot.chat('Слезаю с лошади');
+	}
+	else {
+		bot.chat('Вылезаю из вагонетки');
+	}
+||||||| merged common ancestors
+	bot.chat('dismounted ' + vehicle.objectType);
+=======
+    bot.chat('dismounted ' + vehicle.objectType);
+>>>>>>> 34411a4580bb1feb06a4b0bb05c234af45344538
+});
+
+var minimalDistance = 2;
+
+function mountToNearestEntity() {
+<<<<<<< HEAD
+	var id, entity, dist;
+	var best = null;
+	var bestDistance = null;
+	for(id in bot.entities) {
+		entity = bot.entities[id];
+		// if ( entity.type === 'player' ) {
+			// console.log('Found entity', entity.type, entity.displayName || entity.username);//, entity);
+		// }
+		if ( entity === bot.entity ) continue;
+		// if ( ( /*entity.type === 'mob' &&*/ entity.displayName === 'Horse' )
+		//   || ( /*entity.type === 'object' &&*/ entity.displayName === 'Minecart' )
+		//   ) {
+		if ( entity.displayName === 'Horse' || entity.displayName === 'Minecart' ) {
+			dist = bot.entity.position.distanceTo(entity.position);
+			console.log('Нашли объект', entity.type, entity.displayName || entity.username, dist);//entity);
+			if(!best || dist < bestDistance) {
+				best = entity;
+				bestDistance = dist;
+			}
+		}
+	}
+	if (best) {
+		bot.chat('Усаживаемся на ' + best.displayName || best.username + '...');
+		bot.lookAt(best.position.offset(0, best.height, 0));
+		bot.setControlState('forward', true);
+		var goingTimer = setInterval(function(){
+			var distance = bot.entity.position.distanceTo(best.position);
+			// console.log('Расстояние', distance);
+			bot.chat('Расстояние: ' + distance.toFixed(1));
+			if ( distance <= minimalDistance ) {
+				bot.clearControlStates();
+				bot.mount(best);
+				bot.chat('Уселись!');
+				clearTimeout(goingTimer);
+			}
+			else {
+				bot.lookAt(best.position.offset(0, best.height, 0));
+				bot.chat('Идём...');
+			}
+		}, 200);
+	}
+	else {
+		bot.chat('Не найден объект для усаживания!');
+	}
+	// return best;
+||||||| merged common ancestors
+	var id, entity, dist;
+	var best = null;
+	var bestDistance = null;
+	for(id in bot.entities) {
+		entity = bot.entities[id];
+		// if ( entity.type === 'player' ) {
+			// console.log('Found entity', entity.type, entity.displayName || entity.username);//, entity);
+		// }
+		if ( entity === bot.entity ) continue;
+		// if ( ( /*entity.type === 'mob' &&*/ entity.displayName === 'Horse' )
+		//   || ( /*entity.type === 'object' &&*/ entity.displayName === 'Minecart' )
+		//   ) {
+		if ( entity.displayName === 'Horse' || entity.displayName === 'Minecart' ) {
+			dist = bot.entity.position.distanceTo(entity.position);
+			console.log('Нашли объект', entity.type, entity.displayName || entity.username, dist);//entity);
+			if(!best || dist < bestDistance) {
+				best = entity;
+				bestDistance = dist;
+			}
+		}
+	}
+	if (best) {
+		bot.chat('Усаживаемся на ' + best.displayName || best.username + '...');
+		bot.lookAt(best.position.offset(0, best.height, 0));
+		bot.setControlState('forward', true);
+		var goingTimer = setInterval(function(){
+			var distance = bot.entity.position.distanceTo(best.position);
+			// console.log('Расстояние', distance);
+			bot.chat('Расстояние: ' + distance.toFixed(1));
+			if ( distance <= minimalDistance ) {
+				bot.clearControlStates();
+				bot.mount(best);
+				bot.chat('Уселись!');
+				clearTimeout(goingTimer);
+			}
+			else {
+				bot.lookAt(best.position.offset(0, best.height, 0));
+				bot.chat('Идём...')
+			}
+		}, 200);
+	}
+	else {
+		bot.chat('Не найден объект для усаживания!');
+	}
+	// return best;
+=======
+    var id, entity, dist;
+    var best = null;
+    var bestDistance = null;
+    for(id in bot.entities) {
+        entity = bot.entities[id];
+        // if ( entity.type === 'player' ) {
+            // console.log('Found entity', entity.type, entity.displayName || entity.username);//, entity);
+        // }
+        if ( entity === bot.entity ) continue;
+        // if ( ( /*entity.type === 'mob' &&*/ entity.displayName === 'Horse' )
+        //   || ( /*entity.type === 'object' &&*/ entity.displayName === 'Minecart' )
+        //   ) {
+        if ( entity.displayName === 'Horse' || entity.displayName === 'Minecart' ) {
+            dist = bot.entity.position.distanceTo(entity.position);
+            console.log('Нашли объект', entity.type, entity.displayName || entity.username, dist);//entity);
+            if(!best || dist < bestDistance) {
+                best = entity;
+                bestDistance = dist;
+            }
+        }
+    }
+    if (best) {
+        bot.chat('Усаживаемся на ' + best.displayName || best.username + '...');
+        bot.lookAt(best.position.offset(0, best.height, 0));
+        bot.setControlState('forward', true);
+        var goingTimer = setInterval(function(){
+            var distance = bot.entity.position.distanceTo(best.position);
+            // console.log('Расстояние', distance);
+            bot.chat('Расстояние: ' + distance.toFixed(1));
+            if ( distance <= minimalDistance ) {
+                bot.clearControlStates();
+                bot.mount(best);
+                bot.chat('Уселись!');
+                clearTimeout(goingTimer);
+            }
+            else {
+                bot.lookAt(best.position.offset(0, best.height, 0));
+                bot.chat('Идём...');
+            }
+        }, 200);
+    }
+    else {
+        bot.chat('Не найден объект для усаживания!');
+    }
+    // return best;
+>>>>>>> 34411a4580bb1feb06a4b0bb05c234af45344538
+}

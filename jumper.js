@@ -13,10 +13,10 @@ if(process.argv.length < 4 || process.argv.length > 6) {
 }
 
 var bot = mineflayer.createBot({
-	host: 'localhost',//process.argv[2],
-	port: 52148,//parseInt(process.argv[3]),
-	username: 'jumper',
-	// password: process.argv[5],
+	host: process.argv[2],
+	port: parseInt(process.argv[3]),
+	username: process.argv[4] ? process.argv[4] : 'jumper',
+	password: process.argv[5],
 	verbose: true,
 });
 
@@ -105,7 +105,7 @@ bot.on('chat', function(username, message) {
 			bot.chat('Yaw ' + bot.entity.yaw + ', pitch: ' + bot.entity.pitch);
 			break;
 		default:
-			bot.chat('What? '+ message + '?');
+			bot.chat('Что? '+ message + '?');
 	}
 });
 
@@ -120,11 +120,22 @@ bot.once('spawn', function() {
 });
 
 bot.on('mount', function() {
-	bot.chat('mounted ' + bot.vehicle.objectType);
+	console.log('test mount');
+	if ( entity.displayName === 'Minecart' ) {
+		bot.chat('Уселся в вагонетку');
+	}
+	else {
+		bot.chat('Уселся на лошадь');
+	}
 });
 
 bot.on('dismount', function(vehicle) {
-	bot.chat('dismounted ' + vehicle.objectType);
+	if ( entity.displayName === 'Horse' ) {
+		bot.chat('Слезаю с лошади');
+	}
+	else {
+		bot.chat('Вылезаю из вагонетки');
+	}
 });
 
 var minimalDistance = 2;
@@ -167,7 +178,7 @@ function mountToNearestEntity() {
 			}
 			else {
 				bot.lookAt(best.position.offset(0, best.height, 0));
-				bot.chat('Идём...')
+				bot.chat('Идём...');
 			}
 		}, 200);
 	}
